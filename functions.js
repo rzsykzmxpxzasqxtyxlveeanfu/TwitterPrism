@@ -1,20 +1,20 @@
 $(function(){
-	$("#add-term").load("add-term.php").effect("highlight");
-	$("#dashboard").load("dashboard.php").effect("highlight");
+	$("#add-term").load("ajax-add-term.php").effect("highlight");
+	$("#dashboard").load("ajax-dashboard.php").effect("highlight");
 });
 
 function term(id){
-	$("#term").load("term.php?termID="+ id).effect("highlight");
+	$("#term").load("ajax-term.php?termID="+ id).effect("highlight");
 }
 
 function show_tweets(id){
-	$("#tweets").load("show_tweets.php?termID="+ id).effect("highlight");
+	$("#tweets").load("ajax-show-tweets.php?termID="+ id).effect("highlight");
 }
 
 function vote(id,type){
 	$.ajax({
 		type: "POST",
-		url: "vote.php",
+		url: "ajax-vote.php",
 		data: "termID=" + id + "&vote=" + type,
 		success: function(msg){
 			$(".booth-"+ id).html("thx!").effect("highlight");
@@ -25,12 +25,12 @@ function vote(id,type){
 $(function(){
 	$("#find").autocomplete({
 		source: function(request, response){
-			$.getJSON("search.php?term="+ request.term,function (data){
+			$.getJSON("ajax-search.php?term="+ request.term,function (data){
 				response(data);
 			});
 		},
 		select: function( event, ui ) {
-			$("#term").load("term.php?termID="+ ui.item.value).effect("highlight");
+			$("#term").load("ajax-term.php?termID="+ ui.item.value).effect("highlight");
 			$("#find").val(ui.item.label);
 		}
 	})
